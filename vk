@@ -2,3 +2,9 @@ resource "aws_vpc" "ruturaj" {
   cidr_block = "10.10.0.0/16"
   tags = { Name = "Ruturaj" }
 }
+
+resource "aws_subnet" "public1" {
+  vpc_id     = aws_vpc.ruturaj.id
+  cidr_block = "10.10.1.0/24"
+  tags       = { Name = "public1"}
+}}

@@ -59,7 +59,7 @@ resource "aws_route_table_association" "A2" {
 
 resource "aws_key_pair" "rutu" {
   key_name   = "Public_key"
-  public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFT9k8bWSe8AJkyi9urwXVOnQn8mXqbjvM4YcxEJrovK asus@LAPTOP-N47IC04F"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC3PLxjXD8tGy5nwEEeMSb4bnG91EEH1kWtTke/lZeF7pf34541q49l+i12mSKPcnpLCmFEpLQpPSmAlsq3m+e2DR9RUdMUS6W4DiNSIklEnpqLs4FAzjFch0VF1xaNzdZHqI1SVfaSDO4qEJUriYLhgU7GPzSeoNOWdLwDyOetrmdUNVi6qTdlAvS2+/Hl1vfPxNrR1Mu/an22xrEgpWRBe0ROWLJerbFLRcptPKaJ+GvoReZZ4sQW/E0v3OxfZ8QcNhtoQ4W8oaoP6KLq3BElpdaC63so11cE4Cqn/oR4FjyM8hLHb39BaoJ19EYRDL61s/LgQUUptdy0oGzWTRI6w9CFCgAqXKqfNtj3xuLWG1GzQYaOnA/IkbjQDgJasxijneKWHFsrW1AYyEQ2BTOAfGlApRbobvr533n3uysxyk9G6UI4SDC2oBikb+0TT+spcq6uDVSdNAm8UDc6AmObDFvWaLSWK25EY16VxZ+4H1OfWRjVHABd/aWtqNAIS8s= ruturajtekale56@gmail.com"
 }
 
 # Corrected Security Group (Ensured it's inside the VPC)
@@ -101,20 +101,5 @@ resource "aws_instance" "My_server" {
     sudo systemctl enable jenkins
   EOF
 
-  tags = { Name = "EC2 server" }
-
-  provisioner "remote-exec" {
-    inline = [
-      "echo 'Waiting for Jenkins to start...'",
-      "sleep 30",
-      "sudo cat /var/lib/jenkins/secrets/initialAdminPassword"
-    ]
-
-    connection {
-      type        = "ssh"
-      user        = "ec2-user"
-      private_key = file("C:\\Users\\Asus\\.ssh\\private")
-      host        = self.public_ip
-    }
-  }
+  tags = { Name = "EC2 server"}
 }
